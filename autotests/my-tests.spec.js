@@ -1,21 +1,21 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';і
 const URL = 'https://www.saucedemo.com/v1/';
 const userCred  = { 
     userLogin:'standard_user', 
     userPass:'secret_sauce'
 };
 
-test('Test check login', async ({ page }) => {
+test('Test check uder login', async ({ page }) => {
 //Open page url
   await page.goto(URL);
 //Fill user credential filds  
   await page.locator('[data-test="username"]').click();
   await page.locator('[data-test="username"]').fill(userCred.userPass);
   await page.locator('[data-test="password"]').click();
-  await page.locator('[data-test="password"]').fill(UserActivation.userLogin);
+  await page.locator('[data-test="password"]').fill(UsserActivation.userLogin);
 //Click login button
   await page.getByRole('button', { name: 'LOGIN' }).click();
-//Web-site actions
+//Web-site actionss
   await page.locator('#header_container div').nth(1).click();
   await page.getByRole('button', { name: 'Open Menu' }).click();
 //Check in logaut element
