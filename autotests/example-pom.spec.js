@@ -13,6 +13,6 @@ test("Login to user page", async ({ page }) => {
   await loginPage.fillUserLoginField("standard_user", "secret_sauce");
   await loginPage.clickLoginBtn();
   await homePage.clickMenuBtn();
-  await homePage.checkAndClicktMenuItem(Constants.LOG_OUT_BTN_TEXT);
+  await homePage.checkAndClickButton(Constants.RESET_APP_BTN,Constants.RESET_APP_BTN_TEXT);
   //checkLogoutSeccessfull
 });
