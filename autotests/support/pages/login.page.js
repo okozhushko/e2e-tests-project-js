@@ -7,21 +7,20 @@ export default class LoginPage {
   }
 
   //Locators
+  loginBtnText = () => this.page.getByText(Constants.LOGIN_BTN_TEXT);
   userName = () => this.page.locator(Constants.USER_NAME);
   userPass = () => this.page.locator(Constants.USER_PASS);
   loginBtn = () => this.page.locator(Constants.LOGIN_BTN);
-  loginBtnText = () => this.page.getByText(Constants.LOGIN_BUTTON_TEXT);
+  pageLogoText = () => this.page.getByText("Swag Labs");
   pageLogo = () => this.page.locator(Constants.LOGO);
-  pageLogoText = () => this.page.getByText(Constants.LOGO_TEXT);
 
   //Actions
   visit = async () => await this.page.goto("https://www.saucedemo.com/");
 
   checkLogo = async () => {
-    const logoText = this.page.getByText(Constants.LOGIN_BUTTON_TEXT);
-    await expect(logoText).toBeVisible();
-    const logo = this.page.locator(Constants.LOGO);
-    await expect(logo).toBeVisible();
+    const logo = this.pageLogo();
+        await expect(logo).toBeVisible();
+        await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
 
   fillUserLoginField = async (userName, userPass) => {
@@ -29,11 +28,10 @@ export default class LoginPage {
     await this.userPass().fill(userPass);
   };
 
-  clickLoginBtn = async () => {
-    const loginBtnText = this.page.getByText(Constants.LOGO_TEXT);
-    await expect(loginBtnText).toBeVisible();
-    const loginBtnLocator = this.page.locator(Constants.LOGO);
-    await expect(loginBtnLocator).toBeVisible();
-    await this.loginBtn().click();
+  clickLoginBtn = async () => {      
+    const loginBtn = this.loginBtn();
+        await expect(loginBtn).toBeVisible();
+        await expect(loginBtn).toHaveText(Constants.LOGIN_BTN_TEXT);
+        await loginBtn.click();
   };
 }
