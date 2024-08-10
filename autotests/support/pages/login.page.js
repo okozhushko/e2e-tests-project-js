@@ -6,35 +6,35 @@ export default class HomePage {
     this.page = page;
   }
 
-  menuBtn = () => this.page.locator(Constants.MENU_BTN);
-  logOutBtn = () => this.page.locator(Constants.LOG_OUT_BTN);
-  pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
-  loginBtnText = () => this.page.getByText(Constants.LOGIN_BTN_TEXT);
-  userName = () => this.page.locator(Constants.USER_NAME);
-  userPass = () => this.page.locator(Constants.USER_PASS);
-  userNameFld = () => this.page.locator(Constants.USER_NAME_FLD);
-  userPassFld = () => this.page.locator(Constants.USER_PASS_FLD);
-  loginBtn = () => this.page.locator(Constants.LOGIN_BTN);
-  pageLogoText = () => this.page.getByText("Swag Labs");
-  loginPageLogo = () => this.page.locator(Constants.LOGIN_PAGE_LOGO);
-  homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
-  errorMsgFld = () => this.page.locator(Constants.ERROR_MSG_FLD);
   userNameErroIcon = () => this.page.locator(Constants.USER_NAME_ERROR_ICON);
   userPassErroIcon = () => this.page.locator(Constants.USER_PASS_ERROR_ICON);
+  loginBtnText = () => this.page.getByText(Constants.LOGIN_BTN_TEXT);
+  loginPageLogo = () => this.page.locator(Constants.LOGIN_PAGE_LOGO);
+  pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
+  homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
+  userNameFld = () => this.page.locator(Constants.USER_NAME_FLD);
+  userPassFld = () => this.page.locator(Constants.USER_PASS_FLD);
+  errorMsgFld = () => this.page.locator(Constants.ERROR_MSG_FLD);
+  logOutBtn = () => this.page.locator(Constants.LOG_OUT_BTN);
+  userName = () => this.page.locator(Constants.USER_NAME);
+  userPass = () => this.page.locator(Constants.USER_PASS);
+  loginBtn = () => this.page.locator(Constants.LOGIN_BTN);
+  menuBtn = () => this.page.locator(Constants.MENU_BTN);
+  pageLogoText = () => this.page.getByText("Swag Labs");
 
   visit = async () => await this.page.goto("https://www.saucedemo.com/");
 
   fillUserNameField = async userName => {
     const userNameFld = this.userNameFld();
     await expect(userNameFld).toBeVisible();
-    await this.userNameFld().fill('');
+    await this.userNameFld().fill("");
     await this.userNameFld().fill(userName);
   };
 
   fillUserPassField = async userPass => {
     const userPassFld = this.userPassFld();
     await expect(userPassFld).toBeVisible();
-    await this.userPassFld().fill('');
+    await this.userPassFld().fill("");
     await this.userPassFld().fill(userPass);
   };
 

@@ -1,17 +1,17 @@
 import * as Constants from "../constants";
 import { expect } from "@playwright/test";
-
 export default class HomePage {
   constructor(page) {
     this.page = page;
   }
 
-  menuBtn = () => this.page.locator(Constants.MENU_BTN);
-  allItemsBtn = () => this.page.locator(Constants.ALL_ITEMS_BTN);
-  itemLocator = () => this.page.locator(Constants.ALL_ITEMS_BTN);
   pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
   homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
-
+  allItemsBtn = () => this.page.locator(Constants.ALL_ITEMS_BTN);
+  itemLocator = () => this.page.locator(Constants.ALL_ITEMS_BTN);
+  menuBtn = () => this.page.locator(Constants.MENU_BTN);
+  itemButtonsList = () =>
+    this.page.locator("//div[@data-test='inventory-item']//button");
 
   checkPageTitle = async () => {
     const pageTitleLocator = this.pageTitleLocator();
@@ -34,5 +34,14 @@ export default class HomePage {
     const elements = this.page.locator(itemSelector);
     const actualCount = await elements.count();
     expect(actualCount).toBe(expectedCount);
+  };
+
+  checkReportTypeDescriptionsCount = async expectedCount => {
+    const btnList = this.itemButtonsList();
+    await expect(btnList).toHaveCount(expectedCount);
+    const actualTexts = await btnList.evaluateAll(elements =>
+      elements.map(el => el.textContent.trim())
+    );
+    expect(actualTexts).toEqual(["Add to cart", "Add to cart", "Add to cart", "Add to cart", "Add to cart", "Add to cart"]);//need to fix it 
   };
 }

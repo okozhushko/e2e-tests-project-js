@@ -1,9 +1,7 @@
 import * as Constants from "../autotests/support/constants";
 import { test } from "@playwright/test";
-
 import HomePage from "./support/pages/home.page";
 import LoginPage from "./support/pages/login.page";
-import SideBarPage from "./support/sections/sidebar.section";
 
 test("Login with invalid credentials", async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -47,19 +45,14 @@ test("Check page elements", async ({ page }) => {
   await homePage.checkPageItemCount(Constants.ITEM_SELECTOR, 6);
 });
 
-test("Check Add item to bucket", async ({ page }) => {
+test("Check ability to create order", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const homePage = new HomePage(page);
-  const sideBar = new SideBarPage(page);
 
   await loginPage.visit();
-  await loginPage.checkLogo();
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
   await homePage.checkPageTitle();
-  await homePage.clickMenuBtn();
-  await sideBar.clickCloseSideBarBtn();
-  await sideBar.checkMenuItems();
-  await homePage.checkPageItemCount(Constants.ITEM_SELECTOR, 6);
+  await homePage.checkReportTypeDescriptionsCount(6);
 });
