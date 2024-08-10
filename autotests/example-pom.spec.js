@@ -11,9 +11,15 @@ test("Login with invalid credentials", async ({ page }) => {
   await loginPage.visit();
   await loginPage.clickLoginBtn();
   await loginPage.checkErrorMessage(Constants.USER_REQUIRED_MSG);
-  await loginPage.fillUserNameField("tests");
+  await loginPage.checkUserNameErrorIcon();
+  await loginPage.checkUserPassErrorIcon();
+  await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.clickLoginBtn();
   await loginPage.checkErrorMessage(Constants.USER_PASS_REQUIRED_MSG);
+  await loginPage.fillUserNameField("jashdj");
+  await loginPage.fillUserPassField("asdasd");
+  await loginPage.clickLoginBtn();
+  await loginPage.checkErrorMessage(Constants.INVALID_CREDENTIALS_MSG);
 });
 
 test("Login with valid credentials", async ({ page }) => {
@@ -25,7 +31,20 @@ test("Login with valid credentials", async ({ page }) => {
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
-  await homePage.checkLogoutSuccessful();
+  await homePage.checkPageTitle();
+});
+
+test("Check page elements", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const homePage = new HomePage(page);
+
+  await loginPage.visit();
+  await loginPage.fillUserNameField(Constants.USER_NAME);
+  await loginPage.fillUserPassField(Constants.USER_PASS);
+  await loginPage.clickLoginBtn();
+  await homePage.checkLogo();
+  await homePage.checkPageTitle();
+  await homePage.checkPageItemCount(Constants.ITEM_SELECTOR, 6);
 });
 
 test("Check Add item to bucket", async ({ page }) => {
@@ -38,7 +57,7 @@ test("Check Add item to bucket", async ({ page }) => {
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
-  await homePage.checkLogoutSuccessful();
+  await homePage.checkPageTitle();
   await homePage.clickMenuBtn();
   await sideBar.clickCloseSideBarBtn();
   await sideBar.checkMenuItems();

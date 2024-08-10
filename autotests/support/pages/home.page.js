@@ -10,12 +10,19 @@ export default class HomePage {
   allItemsBtn = () => this.page.locator(Constants.ALL_ITEMS_BTN);
   itemLocator = () => this.page.locator(Constants.ALL_ITEMS_BTN);
   pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
+  homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
 
 
-  checkLogoutSuccessful = async () => {
+  checkPageTitle = async () => {
     const pageTitleLocator = this.pageTitleLocator();
     await expect(pageTitleLocator).toBeVisible();
     await expect(pageTitleLocator).toHaveText(Constants.PAGE_TITLE_TEXT);
+  };
+
+  checkLogo = async () => {
+    const logo = this.homePageLogo();
+    await expect(logo).toBeVisible();
+    await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
 
   clickMenuBtn = async () => {

@@ -8,7 +8,8 @@ const Constants = {
   USER_NAME_FLD: "#user-name",
   USER_PASS_FLD: "#password",
   LOGIN_BTN: "#login-button",
-  LOGO: ".login_logo",
+  LOGIN_PAGE_LOGO: ".login_logo",
+  HOME_PAGE_LOGO: ".app_logo",
   MENU_BTN: "#react-burger-menu-btn",
   LOG_OUT_BTN: "#logout_sidebar_link",
   ALL_ITEMS_BTN: "#inventory_sidebar_link",
@@ -18,6 +19,8 @@ const Constants = {
   SIDE_BAR_CLOSE_BTN: "#react-burger-cross-btn",
   PAGE_TITLE: "//span[@data-test='title']",
   ERROR_MSG_FLD: "//h3[@data-test='error']",
+  USER_NAME_ERROR_ICON:"(//div[@class='form_group']//*[local-name()='svg'])[1]",
+  USER_PASS_ERROR_ICON:"(//div[@class='form_group']//*[local-name()='svg'])[1]",
  
  
   //Text values
@@ -35,6 +38,5 @@ const Constants = {
   USER_PASS_REQUIRED_MSG: "Epic sadface: Password is required",
   USER_REQUIRED_MSG: "Epic sadface: Username is required"
  };
- 
- 
+
  module.exports = Constants;

@@ -16,20 +16,25 @@ export default class HomePage {
   userPassFld = () => this.page.locator(Constants.USER_PASS_FLD);
   loginBtn = () => this.page.locator(Constants.LOGIN_BTN);
   pageLogoText = () => this.page.getByText("Swag Labs");
-  pageLogo = () => this.page.locator(Constants.LOGO);
+  loginPageLogo = () => this.page.locator(Constants.LOGIN_PAGE_LOGO);
+  homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
   errorMsgFld = () => this.page.locator(Constants.ERROR_MSG_FLD);
+  userNameErroIcon = () => this.page.locator(Constants.USER_NAME_ERROR_ICON);
+  userPassErroIcon = () => this.page.locator(Constants.USER_PASS_ERROR_ICON);
 
   visit = async () => await this.page.goto("https://www.saucedemo.com/");
 
-  fillUserNameField = async (userName) => {
+  fillUserNameField = async userName => {
     const userNameFld = this.userNameFld();
     await expect(userNameFld).toBeVisible();
+    await this.userNameFld().fill('');
     await this.userNameFld().fill(userName);
   };
 
-  fillUserPassField = async (userPass) => {
+  fillUserPassField = async userPass => {
     const userPassFld = this.userPassFld();
     await expect(userPassFld).toBeVisible();
+    await this.userPassFld().fill('');
     await this.userPassFld().fill(userPass);
   };
 
@@ -47,7 +52,7 @@ export default class HomePage {
   };
 
   checkLogo = async () => {
-    const logo = this.pageLogo();
+    const logo = this.loginPageLogo();
     await expect(logo).toBeVisible();
     await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
@@ -87,5 +92,15 @@ export default class HomePage {
   checkErrorMessage = async expectedMessage => {
     const elements = this.errorMsgFld();
     await expect(elements).toHaveText(expectedMessage);
+  };
+
+  checkUserNameErrorIcon = async () => {
+    const icon = this.userNameErroIcon();
+    await expect(icon).toBeVisible();
+  };
+
+  checkUserPassErrorIcon = async () => {
+    const icon = this.userPassErroIcon();
+    await expect(icon).toBeVisible();
   };
 }
