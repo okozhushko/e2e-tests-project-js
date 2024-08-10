@@ -11,7 +11,9 @@ export default class HomePage {
   itemLocator = () => this.page.locator(Constants.ALL_ITEMS_BTN);
   menuBtn = () => this.page.locator(Constants.MENU_BTN);
   itemButtonsList = () =>
-    this.page.locator("//div[@data-test='inventory-item']//button");
+    this.page.locator(
+      "//div[@class='inventory_item']//div[@class='inventory_item_name ']"
+    );
 
   checkPageTitle = async () => {
     const pageTitleLocator = this.pageTitleLocator();
@@ -36,12 +38,14 @@ export default class HomePage {
     expect(actualCount).toBe(expectedCount);
   };
 
-  checkReportTypeDescriptionsCount = async expectedCount => {
-    const btnList = this.itemButtonsList();
-    await expect(btnList).toHaveCount(expectedCount);
-    const actualTexts = await btnList.evaluateAll(elements =>
+  selectItemByIndex = async (expectedCount, names) => {
+    const itemNames = this.itemButtonsList();
+    await expect(itemNames).toHaveCount(expectedCount);
+    const actualTexts = await itemNames.evaluateAll(elements =>
       elements.map(el => el.textContent.trim())
     );
-    expect(actualTexts).toEqual(["Add to cart", "Add to cart", "Add to cart", "Add to cart", "Add to cart", "Add to cart"]);//need to fix it 
+    expect(actualTexts).toEqual(names);
   };
 }
+
+////div[@class='inventory_item']//div[@class='inventory_item_name ']

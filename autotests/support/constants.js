@@ -31,6 +31,8 @@ const Constants = {
   ALL_ITEMS_BTN_TEXT: "All Items",
   RESET_APP_BTN_TEXT: "Reset App State",
   PAGE_TITLE_TEXT: "Products",
+  ITEM_NAMES_LIST:["Sauce Labs Backpack","Sauce Labs Bike Light","Sauce Labs Bolt T-Shirt",
+  "Sauce Labs Fleece Jacket","Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)"],
  
  
   INVALID_CREDENTIALS_MSG:

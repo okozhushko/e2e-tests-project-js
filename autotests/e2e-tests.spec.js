@@ -1,4 +1,4 @@
-import * as Constants from "../autotests/support/constants";
+import * as Constants from "./support/constants";
 import { test } from "@playwright/test";
 import HomePage from "./support/pages/home.page";
 import LoginPage from "./support/pages/login.page";
@@ -54,5 +54,5 @@ test("Check ability to create order", async ({ page }) => {
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
   await homePage.checkPageTitle();
-  await homePage.checkReportTypeDescriptionsCount(6);
+  await homePage.selectItemByIndex(6, Constants.ITEM_NAMES_LIST);
 });
