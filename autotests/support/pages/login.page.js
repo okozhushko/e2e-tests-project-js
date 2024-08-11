@@ -1,4 +1,4 @@
-import * as Constants from "../constants";
+import Constants from "../constants.js";
 import { expect } from "@playwright/test";
 
 export default class HomePage {
@@ -9,37 +9,40 @@ export default class HomePage {
   userNameErroIcon = () => this.page.locator(Constants.USER_NAME_ERROR_ICON);
   userPassErroIcon = () => this.page.locator(Constants.USER_PASS_ERROR_ICON);
   loginBtnText = () => this.page.getByText(Constants.LOGIN_BTN_TEXT);
-  loginPageLogo = () => this.page.locator(Constants.LOGIN_PAGE_LOGO);
-  pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
   homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
-  userNameFld = () => this.page.locator(Constants.USER_NAME_FLD);
-  userPassFld = () => this.page.locator(Constants.USER_PASS_FLD);
   errorMsgFld = () => this.page.locator(Constants.ERROR_MSG_FLD);
-  logOutBtn = () => this.page.locator(Constants.LOG_OUT_BTN);
   userName = () => this.page.locator(Constants.USER_NAME);
   userPass = () => this.page.locator(Constants.USER_PASS);
-  loginBtn = () => this.page.locator(Constants.LOGIN_BTN);
-  menuBtn = () => this.page.locator(Constants.MENU_BTN);
   pageLogoText = () => this.page.getByText("Swag Labs");
 
+  loginPageLogo = () => this.page.getByRole("img", { name: Constants.LOGIN_PAGE_LOGO });
+  pageTitleLocator = () => this.page.getByRole("heading", { name: Constants.PAGE_TITLE_TEXT });
+  userNameFld = () => this.page.getByRole("textbox", { name: "name" });
+  userPassFld = () => this.page.getByRole("textbox", { name: "Password" });
+  logOutBtn = () => this.page.getByRole("button", { name: Constants.LOG_OUT_BTN_TEXT });
+  loginBtn = () => this.page.getByRole("button", { name: Constants.LOGIN_BTN_TEXT });
+  menuBtn = () => this.page.getByRole("button", { name: "Menu" });
   visit = async () => await this.page.goto("https://www.saucedemo.com/");
 
   fillUserNameField = async userName => {
     const userNameFld = this.userNameFld();
+    await userNameFld.waitFor();
     await expect(userNameFld).toBeVisible();
-    await this.userNameFld().fill("");
-    await this.userNameFld().fill(userName);
+    await userNameFld.fill("");
+    await userNameFld.fill(userName);
   };
 
   fillUserPassField = async userPass => {
     const userPassFld = this.userPassFld();
+    await userPassFld.waitFor();
     await expect(userPassFld).toBeVisible();
-    await this.userPassFld().fill("");
-    await this.userPassFld().fill(userPass);
+    await userPassFld.fill("");
+    await userPassFld.fill(userPass);
   };
 
   clickLoginBtn = async () => {
     const loginBtn = this.loginBtn();
+    await loginBtn.waitFor();
     await expect(loginBtn).toBeVisible();
     await expect(loginBtn).toHaveText(Constants.LOGIN_BTN_TEXT);
     await loginBtn.click();
@@ -47,23 +50,28 @@ export default class HomePage {
 
   checkLogoutSuccessful = async () => {
     const pageTitleLocator = this.pageTitleLocator();
+    await pageTitleLocator.waitFor();
     await expect(pageTitleLocator).toBeVisible();
     await expect(pageTitleLocator).toHaveText(Constants.PAGE_TITLE_TEXT);
   };
 
   checkLogo = async () => {
     const logo = this.loginPageLogo();
+    await logo.waitFor();
     await expect(logo).toBeVisible();
     await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
 
   clickMenuBtn = async () => {
-    await expect(this.menuBtn()).toBeVisible();
-    await this.menuBtn().click();
+    const menuBtnLocator = this.menuBtn();
+    await menuBtnLocator.waitFor();
+    await expect(menuBtnLocator).toBeVisible();
+    await menuBtnLocator.click();
   };
 
   clickLogOutBtn = async () => {
     const logOutBtnLocator = this.logOutBtn();
+    await logOutBtnLocator.waitFor();
     await expect(logOutBtnLocator).toBeVisible();
     await expect(logOutBtnLocator).toHaveText(Constants.LOG_OUT_BTN_TEXT);
     await logOutBtnLocator.click();
@@ -71,6 +79,7 @@ export default class HomePage {
 
   checkAndClickButton = async (selector, expectedText) => {
     const button = this.page.locator(selector);
+    await button.waitFor();
     await expect(button).toHaveText(expectedText);
     await expect(button).toBeVisible();
     await button.click();
@@ -78,6 +87,7 @@ export default class HomePage {
 
   logOutBtn = async (selector, buttonText) => {
     const button = this.page.locator(selector);
+    await button.waitFor();
     await expect(button).toHaveText(buttonText);
     await expect(button).toBeVisible();
     await button.click();
@@ -85,22 +95,26 @@ export default class HomePage {
 
   checkPageItemCount = async (itemSelector, expectedCount) => {
     const elements = this.page.locator(itemSelector);
+    await elements.waitFor();
     const actualCount = await elements.count();
     expect(actualCount).toBe(expectedCount);
   };
 
   checkErrorMessage = async expectedMessage => {
-    const elements = this.errorMsgFld();
-    await expect(elements).toHaveText(expectedMessage);
+    const errorMsgFld = this.page.locator(Constants.ERROR_MSG_FLD);
+    await errorMsgFld.waitFor();
+    await expect(errorMsgFld).toHaveText(expectedMessage);
   };
 
   checkUserNameErrorIcon = async () => {
-    const icon = this.userNameErroIcon();
+    const icon = this.page.locator(Constants.USER_NAME_ERROR_ICON);
+    await icon.waitFor();
     await expect(icon).toBeVisible();
   };
 
   checkUserPassErrorIcon = async () => {
-    const icon = this.userPassErroIcon();
+    const icon = this.page.locator(Constants.USER_PASS_ERROR_ICON);
+    await icon.waitFor();
     await expect(icon).toBeVisible();
   };
 }
