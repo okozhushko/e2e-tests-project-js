@@ -1,5 +1,7 @@
 import Constants from "../constants.js";
 import { expect } from "@playwright/test";
+import { waitForVisibility } from "../helpers/helpers.js";
+
 
 export default class HomePage {
   constructor(page) {
@@ -29,7 +31,8 @@ export default class HomePage {
 
   fillUserNameField = async userName => {
     const userNameFld = this.userNameFld();
-    await userNameFld.waitFor();
+    waitForVisibility(userNameFld);
+    // await userNameFld.waitFor();
     await expect(userNameFld).toBeVisible();
     await userNameFld.fill("");
     await userNameFld.fill(userName);
@@ -60,6 +63,7 @@ export default class HomePage {
 
   checkLogo = async () => {
     const logo = this.loginPageLogo();
+    await logo.waitFor();
     await expect(logo).toBeVisible();
     await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
