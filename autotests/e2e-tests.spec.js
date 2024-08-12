@@ -1,4 +1,4 @@
-import Constants from "./support/constants"
+import Constants from "./support/constants";
 import { test } from "@playwright/test";
 import HomePage from "./support/pages/home.page";
 import LoginPage from "./support/pages/login.page";
@@ -25,11 +25,11 @@ test("Login with valid credentials", async ({ page }) => {
   const homePage = new HomePage(page);
 
   await loginPage.visit();
-  // await loginPage.checkLogo();
+  await loginPage.checkLogo();
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
-  // await homePage.checkPageTitle();
+  await homePage.checkPageTitle();
 });
 
 test("Check page elements", async ({ page }) => {
@@ -40,8 +40,8 @@ test("Check page elements", async ({ page }) => {
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
-  // await homePage.checkLogo();
-  // await homePage.checkPageTitle();
+  await homePage.checkLogo();
+  await homePage.checkPageTitle();
   await homePage.checkPageItemsCount(Constants.ITEM_SELECTOR, 6);
   await homePage.checkProductNamesList(6, Constants.ITEM_NAMES_LIST);
   await homePage.chectItemPrices(6, Constants.ITEM_PRICES_LIST);
@@ -55,6 +55,6 @@ test("Check ability to create order", async ({ page }) => {
   await loginPage.fillUserNameField(Constants.USER_NAME);
   await loginPage.fillUserPassField(Constants.USER_PASS);
   await loginPage.clickLoginBtn();
-  // await homePage.checkPageTitle();
+  await homePage.checkPageTitle();
   await homePage.selectItemByIndex(1, "$29.99");
 });

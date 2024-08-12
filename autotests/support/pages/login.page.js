@@ -15,12 +15,15 @@ export default class HomePage {
   userPass = () => this.page.locator(Constants.USER_PASS);
   pageLogoText = () => this.page.getByText("Swag Labs");
 
-  loginPageLogo = () => this.page.getByRole("img", { name: Constants.LOGIN_PAGE_LOGO });
-  pageTitleLocator = () => this.page.getByRole("heading", { name: Constants.PAGE_TITLE_TEXT });
+  loginPageLogo = () => this.page.locator(Constants.LOGIN_PAGE_LOGO);
+  pageTitleLocator = () =>
+    this.page.getByRole("heading", { name: Constants.PAGE_TITLE_TEXT });
   userNameFld = () => this.page.getByRole("textbox", { name: "name" });
   userPassFld = () => this.page.getByRole("textbox", { name: "Password" });
-  logOutBtn = () => this.page.getByRole("button", { name: Constants.LOG_OUT_BTN_TEXT });
-  loginBtn = () => this.page.getByRole("button", { name: Constants.LOGIN_BTN_TEXT });
+  logOutBtn = () =>
+    this.page.getByRole("button", { name: Constants.LOG_OUT_BTN_TEXT });
+  loginBtn = () =>
+    this.page.getByRole("button", { name: Constants.LOGIN_BTN_TEXT });
   menuBtn = () => this.page.getByRole("button", { name: "Menu" });
   visit = async () => await this.page.goto("https://www.saucedemo.com/");
 
@@ -57,7 +60,6 @@ export default class HomePage {
 
   checkLogo = async () => {
     const logo = this.loginPageLogo();
-    await logo.waitFor();
     await expect(logo).toBeVisible();
     await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };

@@ -6,11 +6,15 @@ export default class HomePage {
     this.page = page;
   }
 
-  pageTitleLocator = () => this.page.getByRole('heading', { name: Constants.PAGE_TITLE });
-  homePageLogo = () => this.page.getByRole('img', { name: Constants.LOGO_TEXT });
-  menuBtn = () => this.page.getByRole('button', { name: 'Menu' });
-  itemButtonsList = () => this.page.locator("//div[@class='inventory_item']//div[@class='inventory_item_name ']");
-  descrList = () => this.page.locator("//div[@data-test='inventory-item-desc']");
+  pageTitleLocator = () => this.page.locator(Constants.PAGE_TITLE);
+  homePageLogo = () => this.page.locator(Constants.HOME_PAGE_LOGO);
+  menuBtn = () => this.page.getByRole("button", { name: "Menu" });
+  itemButtonsList = () =>
+    this.page.locator(
+      "//div[@class='inventory_item']//div[@class='inventory_item_name ']"
+    );
+  descrList = () =>
+    this.page.locator("//div[@data-test='inventory-item-desc']");
   pricesList = () => this.page.locator("//div[@class='inventory_item_price']");
 
   checkPageTitle = async () => {
@@ -22,7 +26,6 @@ export default class HomePage {
 
   checkLogo = async () => {
     const logo = this.homePageLogo();
-    await logo.waitFor();
     await expect(logo).toBeVisible();
     await expect(logo).toHaveText(Constants.LOGO_TEXT);
   };
@@ -59,16 +62,8 @@ export default class HomePage {
   };
 
   selectItemByIndex = async (index, expectedText) => {
-    const locator = this.pricesList();
-    const elementCount = await locator.count();
-    if (index < 0 || index >= elementCount) {
-      throw new Error(
-        `Index ${index} is out of range. Only ${elementCount} items found.`
-      );
-    }
-    const item = locator.nth(index - 1);
+    const item = this.pricesList().nth(index - 1);
     await expect(item).toBeVisible();
     await expect(item).toHaveText(expectedText);
-    return item;
   };
 }

@@ -16,7 +16,7 @@ const Constants = {
   RESET_APP_BTN: "#reset_sidebar_link",
   ITEM_SELECTOR: "//div[@data-test='inventory-item']",
   SIDE_BAR_CLOSE_BTN: "#react-burger-cross-btn",
-  PAGE_TITLE: ".title",
+  PAGE_TITLE: "//span[@data-test='title']",
   ERROR_MSG_FLD: "//h3[@data-test='error']",
   USER_NAME_ERROR_ICON:
     "(//div[@class='form_group']//*[local-name()='svg'])[1]",
