@@ -26,7 +26,7 @@ const Constants = {
     "Epic sadface: Username and password do not match any user in this service",
   USER_PASS_REQUIRED_MSG: "Epic sadface: Password is required",
   USER_REQUIRED_MSG: "Epic sadface: Username is required",
-  
+
   //Text values
   LOGIN_BTN_TEXT: "Login",
   LOG_OUT_BTN_TEXT: "Logout",
