@@ -66,4 +66,4 @@ export default class HomePage {
     await expect(item).toBeVisible();
     await expect(item).toHaveText(expectedText);
   };
-}
+  }

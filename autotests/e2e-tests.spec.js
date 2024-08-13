@@ -1,5 +1,4 @@
 import Constants from "./support/constants";
-import { waitForVisibility } from "../autotests/support/helpers/helpers.js";
 import { test } from "@playwright/test";
 import HomePage from "./support/pages/home.page";
 import LoginPage from "./support/pages/login.page";
